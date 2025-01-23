@@ -1,11 +1,11 @@
-import axios from "axios";
 import { Button, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
+import axios from "axios";
 
-const SignUp = () => {
+const SignIn = () => {
   const [details, setDetails] = useState({});
 
   const navigate = useNavigate();
@@ -18,17 +18,14 @@ const SignUp = () => {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
-
     try {
-      const res = await axios.post(`/api/auth/signup`, details, {
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const res = await axios.post(`/api/auth/signin`, details, {
+        headers: { "Content-Type": "application/json" },
       });
 
-      if (res.status === 201) {
-        navigate("/sign-in");
-        toast.success(res.data.message);
+      if (res.status === 200) {
+        navigate("/");
+        toast.success("Access Allowed, You are in");
       }
     } catch (error) {
       toast.error(error.response.data.message);
@@ -37,9 +34,9 @@ const SignUp = () => {
 
   return (
     <div className=" min-h-screen max-w-2xl mx-auto flex flex-col justify-center gap-7 px-4">
-      <div className=" w-[100%] overflow-hidden object-cover h-[300px] mt-10 mx-auto">
+      <div className=" w-[100%] overflow-hidden object-cover h-[350px] mt-10 mx-auto">
         <h1 className=" font-semibold text-2xl text-gray-900 text-center mt-6 mb-10">
-          Give every money a NAME!
+          Sign in to get started with your IncomePlanner Account
         </h1>
         <img
           src="https://th.bing.com/th/id/OIP.qQoAjkFY1Ti5QuqZzfx2mwAAAA?pid=ImgDet&w=185&h=310&c=7"
@@ -48,7 +45,7 @@ const SignUp = () => {
         />
       </div>
       <div className=" w-full">
-        <h1 className=" text-xl text-blue-600 font-semibold text-center">
+        <h1 className=" text-xl text-blue-600 font-semibold text-center mt-2">
           <span className=" text-3xl">Income</span>Planner
         </h1>
       </div>
@@ -59,15 +56,6 @@ const SignUp = () => {
             type="text"
             placeholder="e.g@company.com"
             name="email"
-            onChange={handleChanges}
-          />
-        </div>
-        <div className=" w-full flex flex-col gap-2 text-gray-700 mt-2">
-          <label htmlFor="username">Username:</label>
-          <TextInput
-            type="text"
-            name="username"
-            placeholder="username"
             onChange={handleChanges}
           />
         </div>
@@ -84,17 +72,17 @@ const SignUp = () => {
           type="submit"
           className=" w-full mt-3 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700"
         >
-          Sign Up
+          Sign In
         </Button>
       </form>
       <span className=" text-xs flex gap-1 text-gray-600">
-        <p>Already have an account?</p>
-        <Link to={"/sign-in"} className=" text-blue-600 font-semibold">
-          Sign In
+        <p>No Account?</p>
+        <Link to={"/sign-up"} className=" text-blue-600 font-semibold">
+          Sign Up
         </Link>
       </span>
     </div>
   );
 };
 
-export default SignUp;
+export default SignIn;

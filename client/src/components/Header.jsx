@@ -11,12 +11,12 @@ const Header = () => {
         <span className=" text-xl sm:text-2xl">Income</span>Planner
       </Link>
       <div className=" flex gap-2 md:order-2">
-        <Link to={"/sign-in"}>
+        <Link to={"/sign-up"}>
           <Button
             size="xs"
             className=" text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700"
           >
-            Sign In
+            Sign Up
           </Button>
         </Link>
         <Dropdown
