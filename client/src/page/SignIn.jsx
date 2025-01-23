@@ -4,11 +4,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../redux/user/userSlice";
 
 const SignIn = () => {
   const [details, setDetails] = useState({});
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChanges = (ev) => {
     const { name, value } = ev.target;
@@ -18,16 +25,20 @@ const SignIn = () => {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
+    dispatch(signInStart());
     try {
       const res = await axios.post(`/api/auth/signin`, details, {
         headers: { "Content-Type": "application/json" },
       });
 
       if (res.status === 200) {
+        dispatch(signInSuccess(res.data));
+        console.log(res.data);
         navigate("/");
         toast.success("Access Allowed, You are in");
       }
     } catch (error) {
+      dispatch(signInFailure(error.response.data.message));
       toast.error(error.response.data.message);
     }
   };
