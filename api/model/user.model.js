@@ -22,7 +22,7 @@ const userSchema = Schema(
     profilePicture: {
       type: String,
       default:
-        "https://th.bing.com/th/id/OIP.Ai9h_6D7ojZdsZnE4_6SDgAAAA?rs=1&pid=ImgDetMain",
+        "https://th.bing.com/th/id/OIP.9lp-AzhvWVzYdKMb9E8tLQHaHs?rs=1&pid=ImgDetMain",
     },
   },
   { timestamps: true }
