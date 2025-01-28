@@ -2,14 +2,14 @@ import { Schema, model } from "mongoose";
 
 const incomeSchema = Schema(
   {
-    title: {
+    name: {
       type: String,
       required: true,
     },
     description: {
       type: String,
     },
-    incomeSize: {
+    incomeAmount: {
       type: Number,
       required: true,
       min: 1,
@@ -18,7 +18,7 @@ const incomeSchema = Schema(
       type: String,
       default: "Monthly",
     },
-    currencyType: {
+    currency: {
       type: String,
       default: "USD",
     },
