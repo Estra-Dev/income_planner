@@ -7,7 +7,7 @@ const DashMain = () => {
   const { currentUser } = useSelector((state) => state.user);
 
   return (
-    <div className=" min-h-screen max-w-2xl mx-auto py-2 px-2 flex flex-col mt-1 shadow-sm relative">
+    <div className=" min-h-screen max-w-2xl mx-auto p-2 flex flex-col mt-1 shadow-sm relative">
       <div className=" px-2 py-1 rounded-l-none rounded-3xl max-w-[200px] w-[100%] truncate flex items-center gap-2 bg-blue-950">
         <div className=" w-5 h-5 rounded-full overflow-hidden object-cover ">
           <img
@@ -22,11 +22,11 @@ const DashMain = () => {
       </div>
       <div className=" bg-gray-200 w-full p-3 border-b-2 border-gray-900/50 mt-2">
         <span className=" flex gap-2 text-3xl font-medium text-gray-700">
-          <h1>Income:</h1>
+          <h1>Tot. Income:</h1>
           <p className=" text-white bg-black/15 px-2">$1200.00</p>
         </span>
         <span className=" flex gap-2 text-sm font-medium text-gray-700 mt-2">
-          <h1>Remainiing Balance:</h1>
+          <h1>Tot. Remainiing Balance:</h1>
           <p className=" font-bold border-b-2 border-gray-900">$400.00</p>
         </span>
       </div>
@@ -68,7 +68,10 @@ const DashMain = () => {
               Plans since 7 days ago
             </p>
           </span>
-          <Link className=" border border-blue-600 text-gray-700 font-medium text-xs rounded-2xl p-2">
+          <Link
+            to={`/my-incomes/${currentUser._id}`}
+            className=" border border-blue-600 text-gray-700 font-medium text-xs rounded-2xl p-2"
+          >
             All Plans
           </Link>
         </div>

@@ -10,6 +10,7 @@ import ContactUs from "./page/ContactUs";
 import CreateIncome from "./components/CreateIncome";
 import PrivateRoute from "./components/PrivateRoute";
 import Income from "./components/Income";
+import AllIncomes from "./components/AllIncomes";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/create-income" element={<CreateIncome />} />
             <Route path="/income/:incomeId" element={<Income />} />
+            <Route path="/my-incomes/:userId" element={<AllIncomes />} />
           </Route>
           <Route path="/" element={<Home />} />
           <Route path="/sign-up" element={<SignUp />} />

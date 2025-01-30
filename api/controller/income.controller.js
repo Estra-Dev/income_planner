@@ -47,3 +47,36 @@ export const getIncome = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getIncomes = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const startIndex = parseInt(req.query.startIndex) || 0;
+    const limit = parseInt(req.query.limit) || 10;
+    const sortDirection = req.query.order === "asc" ? 1 : -1;
+    const incomes = await IncomeModel.find({
+      ...(req.query.userId && { userId: req.query.userId }),
+      ...(req.query.name && {
+        $or: [{ name: { $regex: req.query.name, $options: "i" } }],
+      }),
+    })
+      .sort({ updatedAt: sortDirection })
+      .skip(startIndex)
+      .limit(limit);
+
+    const totalIncomes = await IncomeModel.countDocuments();
+
+    const now = new Date();
+    const sevenDaysAgo = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate() - 7
+    );
+    const lastSevenDays = await IncomeModel.countDocuments({
+      createdAt: { $gte: sevenDaysAgo },
+    });
+    res.status(200).json({ totalIncomes, lastSevenDays, incomes });
+  } catch (error) {
+    next(error);
+  }
+};
