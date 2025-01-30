@@ -38,6 +38,15 @@ const AllIncomes = () => {
 
     const searchParams = new URLSearchParams(location.search);
     const nameFromUrlParams = searchParams.get("name");
+    const currencyFromUrlParams = searchParams.get("currency");
+    const typeFromUrl = searchParams.get("type");
+
+    if (currencyFromUrlParams) {
+      setSearch({ ...search, currency: currencyFromUrlParams });
+    }
+    if (typeFromUrl) {
+      setSearch({ ...search, type: typeFromUrl });
+    }
     if (nameFromUrlParams) {
       setSearch({ ...search, name: nameFromUrlParams });
     }
@@ -48,13 +57,43 @@ const AllIncomes = () => {
   const searchIncome = async (ev) => {
     ev.preventDefault();
     const urlParam = new URLSearchParams(location.search);
-    urlParam.set("name", search.name);
+
+    if (search.name) {
+      urlParam.set("name", search.name);
+    }
+    if (search.currency) {
+      urlParam.set("currency", search.currency);
+    }
+    if (search.type) {
+      urlParam.set("type", search.type);
+    }
+
+    navigate(
+      `/my-incomes/${currentUser._id}?${search.name && `name=${search.name}`}${
+        search.currency && search.name
+          ? `&&currency=${search.currency}`
+          : search.currency && `currency=${search.currency}`
+      }${
+        search.name || (search.currency && search.type)
+          ? `&&type=${search.type}`
+          : search.type !== "" && `type=${search.type}`
+      }`
+    );
+
+    if (!search.name && !search.currency && !search.type) {
+      allIncomes();
+      navigate(`/my-incomes/${currentUser._id}`);
+    }
     const searchQuery = urlParam.toString();
-    navigate(`/my-incomes/${currentUser._id}?name=${search.name}`);
 
     try {
       const res = await axios.get(`/api/income/get-incomes?${searchQuery}`);
       if (res.status === 200) {
+        // setSearch({
+        //   name: "",
+        //   currency: "",
+        //   type: "",
+        // });
         setIncomes(res.data.incomes);
         console.log(res);
       }
@@ -96,11 +135,14 @@ const AllIncomes = () => {
               name="currency"
               placeholder="currency"
               className=" w-[20%]"
+              value={search.currency}
+              onChange={handleChange}
             />
-            <Select name="type">
+            <Select name="type" value={search.type} onChange={handleChange}>
+              <option value=""></option>
               <option value="monthly">Monthly</option>
-              <option value="monthly">Weekly</option>
-              <option value="monthly">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="daily">Daily</option>
             </Select>
           </div>
           <Button type="submit" onClick={searchIncome}>

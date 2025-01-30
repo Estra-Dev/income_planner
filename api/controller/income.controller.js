@@ -59,6 +59,12 @@ export const getIncomes = async (req, res, next) => {
       ...(req.query.name && {
         $or: [{ name: { $regex: req.query.name, $options: "i" } }],
       }),
+      ...(req.query.currency && {
+        $or: [{ currency: { $regex: req.query.currency, $options: "i" } }],
+      }),
+      ...(req.query.type && {
+        $or: [{ type: { $regex: req.query.type, $options: "i" } }],
+      }),
     })
       .sort({ updatedAt: sortDirection })
       .skip(startIndex)
