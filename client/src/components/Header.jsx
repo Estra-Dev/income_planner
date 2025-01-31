@@ -1,10 +1,27 @@
-import { Avatar, Button, Dropdown, Navbar } from "flowbite-react";
+import { Avatar, Button, Dropdown, Modal, Navbar } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { useState } from "react";
+import { signOutSuccess } from "../redux/user/userSlice";
 
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
   const path = useLocation().pathname;
+  const [modal, setModal] = useState(false);
+  const dispatch = useDispatch();
+
+  const signOut = async () => {
+    try {
+      const res = await axios.post(`/api/auth/signout`);
+      if (res.status === 200) {
+        setModal(false);
+        dispatch(signOutSuccess());
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Navbar className=" sticky border-b-2 top-0 left-0 z-50 px-5">
@@ -62,7 +79,9 @@ const Header = () => {
             </Dropdown.Item>
 
             <Dropdown.Divider />
-            <Dropdown.Item>Sign Out</Dropdown.Item>
+            <Dropdown.Item onClick={() => setModal(true)}>
+              Sign Out
+            </Dropdown.Item>
           </Dropdown>
         )}
         <Navbar.Toggle />
@@ -84,6 +103,23 @@ const Header = () => {
           </Link>
         </Navbar.Link>
       </Navbar.Collapse>
+
+      <Modal show={modal} onClose={() => setModal(false)} popup size="md">
+        <Modal.Header />
+        <Modal.Body>
+          <p className=" font-medium text-center text-2xl text-gray-700">
+            Signing Out?
+          </p>
+          <div className=" flex gap-4 justify-center mt-3">
+            <Button outline color="failure" size="xs" onClick={signOut}>
+              Sign Out
+            </Button>
+            <Button size="xs" onClick={() => setModal(false)}>
+              Cancel
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </Navbar>
   );
 };
