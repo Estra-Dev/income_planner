@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import { connectDB } from "./config/db.js";
 import authRoute from "./routes/auth.routes.js";
 import incomeRouter from "./routes/income.routes.js";
+import planRouter from "./routes/plans.routes.js";
 
 const app = express();
 dotenv.config();
@@ -25,6 +26,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRoute);
 app.use("/api/income", incomeRouter);
+app.use("/api/plan", planRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
