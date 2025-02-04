@@ -3,14 +3,14 @@ import { errorHandler } from "../utils/error.js";
 
 export const createIncome = async (req, res, next) => {
   try {
-    const { title, incomeSize, currencyType } = req.body;
+    const { name, incomeAmount, currency } = req.body;
 
-    if (title === "" || incomeSize === "" || currencyType === "") {
+    if (name === "" || incomeAmount === "" || currency === "") {
       return next(errorHandler(403, "Please provide all fields"));
     }
 
     const now = new Date().getTime();
-    const currency = req.body.currency.toUpperCase();
+    const currencyType = req.body.currency.toUpperCase();
     const slug =
       req.body.name
         .split(" ")
@@ -23,7 +23,7 @@ export const createIncome = async (req, res, next) => {
     const newIncome = new IncomeModel({
       ...req.body,
       slug,
-      currency,
+      currency: currencyType,
       userId: req.user.id,
     });
     const createdIncome = await newIncome.save();

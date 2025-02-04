@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Button, Select, TextInput } from "flowbite-react";
+import { Button, Label, Select, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { LuNotebookPen } from "react-icons/lu";
 import { useSelector } from "react-redux";
@@ -121,33 +121,44 @@ const AllIncomes = () => {
           Search incomes by:
         </h1>
         <form onSubmit={searchIncome} className=" mt-2 w-full">
-          <div className=" flex gap-3">
-            <TextInput
-              type="text"
-              name="name"
-              placeholder="Search income name..."
-              className=" flex-1"
-              value={search.name}
-              onChange={handleChange}
-            />
-            <TextInput
-              type="text"
-              name="currency"
-              placeholder="currency"
-              className=" w-[20%]"
-              value={search.currency}
-              onChange={handleChange}
-            />
-            <Select name="type" value={search.type} onChange={handleChange}>
-              <option value=""></option>
-              <option value="monthly">Monthly</option>
-              <option value="weekly">Weekly</option>
-              <option value="daily">Daily</option>
-            </Select>
+          <div className=" flex gap-3 flex-col text-gray-700 font-medium">
+            <div className=" flex flex-col gap-2">
+              <label htmlFor="name">Name</label>
+              <TextInput
+                type="text"
+                name="name"
+                placeholder="Search income name..."
+                className=" flex-1"
+                value={search.name}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="flex gap-3 w-full items-end">
+              <div className="flex flex-col gap-2">
+                <label htmlFor="currency">Currency</label>
+                <TextInput
+                  type="text"
+                  name="currency"
+                  placeholder="currency"
+                  className=" flex-1"
+                  value={search.currency}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="type">Type</label>
+                <Select name="type" value={search.type} onChange={handleChange}>
+                  <option value=""></option>
+                  <option value="monthly">Monthly</option>
+                  <option value="weekly">Weekly</option>
+                  <option value="daily">Daily</option>
+                </Select>
+              </div>
+              <Button type="submit" onClick={searchIncome}>
+                Search
+              </Button>
+            </div>
           </div>
-          <Button type="submit" onClick={searchIncome}>
-            SEarch
-          </Button>
         </form>
       </div>
 
