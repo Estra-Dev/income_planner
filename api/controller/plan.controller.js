@@ -44,3 +44,17 @@ export const getPlans = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deletePlan = async (req, res, next) => {
+  try {
+    const plan = await Plans.findById(req.params.planId);
+    if (!plan) {
+      return next(errorHandler(403, "Plan does not exist"));
+    }
+
+    await Plans.findByIdAndDelete(req.params.planId);
+    res.status(200).json("Deleted successfully");
+  } catch (error) {
+    next(error);
+  }
+};

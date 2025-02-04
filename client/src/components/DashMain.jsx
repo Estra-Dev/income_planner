@@ -20,7 +20,7 @@ const DashMain = () => {
           {currentUser.username}
         </p>
       </div>
-      <div className=" bg-gray-200 w-full p-3 border-b-2 border-gray-900/50 mt-2">
+      {/* <div className=" bg-gray-200 w-full p-3 border-b-2 border-gray-900/50 mt-2">
         <span className=" flex gap-2 text-3xl font-medium text-gray-700">
           <h1>Tot. Income:</h1>
           <p className=" text-white bg-black/15 px-2">$1200.00</p>
@@ -29,7 +29,7 @@ const DashMain = () => {
           <h1>Tot. Remainiing Balance:</h1>
           <p className=" font-bold border-b-2 border-gray-900">$400.00</p>
         </span>
-      </div>
+      </div> */}
       <div className=" flex flex-wrap w-full justify-around p-3 border-b-2">
         <div className=" w-[45%] mt-2 border-b-2 pb-2 border rounded-md bg-blue-950">
           <div className=" w-full flex justify-center items-center py-5 ">
