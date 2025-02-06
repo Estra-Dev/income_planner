@@ -11,10 +11,14 @@ const plansSchema = Schema(
     },
     amount: {
       type: Number,
-      // required: true,
+      required: true,
       min: 1,
     },
     incomeId: {
+      type: String,
+      required: true,
+    },
+    incomeSlug: {
       type: String,
       required: true,
     },

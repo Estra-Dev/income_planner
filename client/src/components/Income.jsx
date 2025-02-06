@@ -53,7 +53,7 @@ const Income = () => {
           </span>
         </div>
         <div className=" mt-3">
-          <h1>My Plans</h1>
+          <h1 className=" text-xl font-bold text-gray-800/85">My Plans</h1>
 
           <div className=" my-7 flex flex-col gap-3">
             <Plans onIncome={income} />
@@ -61,7 +61,12 @@ const Income = () => {
         </div>
 
         <div className=" sticky right-0 bottom-0 flex justify-end w-full z-50">
-          <Link to={`/add-plan/${incomeId}`}>Create Plan</Link>
+          <Link
+            to={`/add-plan/${incomeId}`}
+            className=" border border-blue-600 p-2 rounded-xl text-sm font-semibold cursor-pointer"
+          >
+            Set Plan
+          </Link>
         </div>
       </div>
     )
