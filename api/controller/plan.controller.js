@@ -25,6 +25,11 @@ export const createPlan = async (req, res, next) => {
       incomeSlug: income.slug,
       currency: income.currency,
     });
+    await IncomeModel.findByIdAndUpdate(income._id, {
+      $set: {
+        balance: income.balance - req.body.amount,
+      },
+    });
 
     const createdPlan = await newPlan.save();
     res.status(201).json(createdPlan);
@@ -61,16 +66,22 @@ export const getPlans = async (req, res, next) => {
 
 export const deletePlan = async (req, res, next) => {
   try {
-    const plan = await Plans.findById(req.params.planId);
-
     if (req.user.id !== req.params.userId) {
       return next(errorHandler(403, "You are not allowed to delete this Plan"));
     }
+    const plan = await Plans.findById(req.params.planId);
+
     if (!plan) {
       return next(errorHandler(403, "Plan does not exist"));
     }
+    const income = await IncomeModel.findById(plan.incomeId);
 
     await Plans.findByIdAndDelete(req.params.planId);
+    await IncomeModel.findByIdAndUpdate(income._id, {
+      $set: {
+        balance: income.balance + plan.amount,
+      },
+    });
     res.status(200).json("Deleted successfully");
   } catch (error) {
     next(error);
@@ -87,6 +98,8 @@ export const editPlan = async (req, res, next) => {
       next(errorHandler(404, "Plan does not exist"));
     }
 
+    const income = await IncomeModel.findById(plan.incomeId);
+
     const edited = await Plans.findByIdAndUpdate(
       req.params.planId,
       {
@@ -98,6 +111,16 @@ export const editPlan = async (req, res, next) => {
       },
       { new: true }
     );
+    if (req.body.amount) {
+      await IncomeModel.findByIdAndUpdate(income._id, {
+        $set: {
+          balance:
+            req.body.amount > plan.amount
+              ? income.balance - (req.body.amount - plan.amount)
+              : income.balance + (plan.amount - req.body.amount),
+        },
+      });
+    }
     res.status(200).json(edited);
   } catch (error) {
     next(error);

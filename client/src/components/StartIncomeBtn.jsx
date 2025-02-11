@@ -1,16 +1,23 @@
 // import { Button } from "flowbite-react";
+import { Button } from "flowbite-react";
 import { Link } from "react-router-dom";
 
 const StartIncomeBtn = () => {
   return (
-    <div className=" sticky right-0 bottom-5 w-full flex justify-end">
+    <Button
+      size="xs"
+      gradientDuoTone="purpleToBlue"
+      outline
+      className=" z-50 flex justify-end sticky left-[75%] top-[95%]"
+      pill
+    >
       <Link
         to={"/create-income"}
-        className=" border border-blue-700 rounded-2xl text-xs p-2 bg-blue-700 text-white font-medium"
+        className=" rounded-2xl text-xs text-gray-800 font-medium "
       >
         New Income
       </Link>
-    </div>
+    </Button>
   );
 };
 

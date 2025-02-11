@@ -23,6 +23,7 @@ export const createIncome = async (req, res, next) => {
     const newIncome = new IncomeModel({
       ...req.body,
       slug,
+      balance: req.body.incomeAmount,
       currency: currencyType,
       userId: req.user.id,
     });
@@ -82,6 +83,25 @@ export const getIncomes = async (req, res, next) => {
       createdAt: { $gte: sevenDaysAgo },
     });
     res.status(200).json({ totalIncomes, lastSevenDays, incomes });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteIncome = async (req, res, next) => {
+  try {
+    const income = await IncomeModel.findById(req.params.incomeId);
+    if (!income) {
+      return next(errorHandler(403, ""));
+    }
+    if (req.user.id !== req.params.userId) {
+      return next(
+        errorHandler(403, "You are not allowed to delete this income")
+      );
+    }
+
+    await IncomeModel.findByIdAndDelete(req.params.incomeId);
+    res.status(200).json("Deleted Successfully");
   } catch (error) {
     next(error);
   }

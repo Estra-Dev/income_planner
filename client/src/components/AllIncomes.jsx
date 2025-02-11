@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { LuNotebookPen } from "react-icons/lu";
 import { useSelector } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import StartIncomeBtn from "./StartIncomeBtn";
 
 const AllIncomes = () => {
   const [incomes, setIncomes] = useState([]);
@@ -103,7 +104,8 @@ const AllIncomes = () => {
   };
 
   return (
-    <div className=" max-w-2xl mx-auto mt-4 p-3">
+    <div className=" max-w-2xl mx-auto mt-4 p-3 relative">
+      <StartIncomeBtn />
       <div className=" px-2 py-1 rounded-l-none rounded-3xl max-w-[200px] w-[100%] truncate flex items-center gap-2 bg-blue-950">
         <div className=" w-8 h-8 rounded-full overflow-hidden object-cover ">
           <img
