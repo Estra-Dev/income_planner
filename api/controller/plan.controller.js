@@ -92,7 +92,7 @@ export const editPlan = async (req, res, next) => {
   try {
     const plan = await Plans.findById(req.params.planId);
     if (req.user.id !== req.params.userId) {
-      return next(errorHandler(403, "You are not allowed to delete this Plan"));
+      return next(errorHandler(403, "You are not allowed to edit this Plan"));
     }
     if (!plan) {
       next(errorHandler(404, "Plan does not exist"));

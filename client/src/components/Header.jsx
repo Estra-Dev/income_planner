@@ -102,14 +102,16 @@ const Header = () => {
             CONTACT US
           </Link>
         </Navbar.Link>
-        <Navbar.Link as={"div"} active={path === "/my-incomes"}>
-          <Link
-            to={`/my-incomes/${currentUser._id}`}
-            className=" text-[11px] font-medium"
-          >
-            MY INCOMES
-          </Link>
-        </Navbar.Link>
+        {currentUser && (
+          <Navbar.Link as={"div"} active={path === "/my-incomes"}>
+            <Link
+              to={`/my-incomes/${currentUser._id}`}
+              className=" text-[11px] font-medium"
+            >
+              MY INCOMES
+            </Link>
+          </Navbar.Link>
+        )}
       </Navbar.Collapse>
 
       <Modal show={modal} onClose={() => setModal(false)} popup size="md">

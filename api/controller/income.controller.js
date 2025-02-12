@@ -106,3 +106,46 @@ export const deleteIncome = async (req, res, next) => {
     next(error);
   }
 };
+
+export const editIncome = async (req, res, next) => {
+  try {
+    const income = await IncomeModel.findById(req.params.incomeId);
+    if (!income) {
+      return next(errorHandler(403, "No such income"));
+    }
+    if (req.user.id !== req.params.userId) {
+      return next(errorHandler(403, "You are not allowed to edit this income"));
+    }
+
+    // const currencyType = ;
+
+    const editedIncome = await IncomeModel.findByIdAndUpdate(
+      req.params.incomeId,
+      {
+        $set: {
+          name: req.body.name,
+          type: req.body.type,
+          description: req.body.description,
+          incomeAmount: req.body.incomeAmount,
+          currency: req.body.currency && req.body.currency.toUpperCase(),
+          balance:
+            req.body.incomeAmount > income.incomeAmount
+              ? income.balance + (req.body.incomeAmount - income.incomeAmount)
+              : income.balance,
+        },
+      },
+      { new: true }
+    );
+    // if (req.body.incomeAmount) {
+    //   await IncomeModel.findByIdAndUpdate(req.params.incomeId, {
+    //     $set: {
+    //       balance:
+
+    //     },
+    //   });
+    // }
+    res.status(200).json(editedIncome);
+  } catch (error) {
+    next(error);
+  }
+};
