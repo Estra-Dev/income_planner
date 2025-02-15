@@ -81,6 +81,7 @@ export const getIncomes = async (req, res, next) => {
     );
     const lastSevenDays = await IncomeModel.countDocuments({
       createdAt: { $gte: sevenDaysAgo },
+      userId: req.query.userId,
     });
     res.status(200).json({ totalIncomes, lastSevenDays, incomes });
   } catch (error) {

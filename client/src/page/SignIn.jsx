@@ -34,7 +34,7 @@ const SignIn = () => {
       if (res.status === 200) {
         dispatch(signInSuccess(res.data));
         console.log(res.data);
-        navigate("/");
+        navigate("/dashboard?tab=main");
         toast.success("Access Allowed, You are in");
       }
     } catch (error) {

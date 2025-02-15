@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 import { useSelector } from "react-redux";
 import Plan from "./Plan";
+import { Link } from "react-router-dom";
 
 const Plans = ({ onIncome }) => {
   const [plans, setPlans] = useState([]);
@@ -58,7 +59,23 @@ const Plans = ({ onIncome }) => {
   return (
     <div>
       {plans && plans.length < 1 ? (
-        <h1 className=" text-xl text-center mt-11">No Plans yet</h1>
+        <div className=" max-w-2xl mx-auto flex flex-col justify-center items-center gap-3">
+          <h1 className=" text-xl text-center mt-11">No Plans yet</h1>
+          <Button
+            size="xs"
+            gradientDuoTone="purpleToBlue"
+            outline
+            className=""
+            pill
+          >
+            <Link
+              to={"/create-income"}
+              className=" rounded-2xl text-xs text-gray-800 font-medium "
+            >
+              Create your first Income
+            </Link>
+          </Button>
+        </div>
       ) : (
         plans &&
         plans.map((plan) => (

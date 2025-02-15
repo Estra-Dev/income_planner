@@ -8,6 +8,7 @@ import StartIncomeBtn from "./StartIncomeBtn";
 
 const AllIncomes = () => {
   const [incomes, setIncomes] = useState([]);
+  const [showMore, setShowMore] = useState(false);
   const [search, setSearch] = useState({
     name: "",
     currency: "",
@@ -23,6 +24,11 @@ const AllIncomes = () => {
       const res = await axios.get(`/api/income/get-incomes?userId=${userId}`);
       if (res.status === 200) {
         setIncomes(res.data.incomes);
+        if (res.data.incomes.length < 10) {
+          setShowMore(false);
+        } else {
+          setShowMore(true);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -103,8 +109,28 @@ const AllIncomes = () => {
     }
   };
 
+  const handleShowMore = async () => {
+    const startIndex = incomes.length;
+
+    try {
+      const res = await axios.get(
+        `/api/income/get-incomes?startIndex=${startIndex}`
+      );
+      if (res.status === 200) {
+        setIncomes((prev) => [...prev, ...res.data.incomes]);
+        if (incomes < 10) {
+          setShowMore(false);
+        } else {
+          setShowMore(true);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div className=" max-w-2xl mx-auto mt-4 p-3 relative">
+    <div className=" min-h-screen max-w-2xl mx-auto mt-4 p-3 relative">
       <StartIncomeBtn />
       <div className=" px-2 py-1 rounded-l-none rounded-3xl max-w-[200px] w-[100%] truncate flex items-center gap-2 bg-blue-950">
         <div className=" w-8 h-8 rounded-full overflow-hidden object-cover ">
@@ -200,6 +226,13 @@ const AllIncomes = () => {
         ) : (
           <div className=" flex justify-center items-center">
             <h1>No income.</h1>
+          </div>
+        )}
+        {showMore && (
+          <div className=" mt-6 flex justify-center max-w-lg mx-auto">
+            <Button size="xs" className=" bg-lime-500" onClick={handleShowMore}>
+              Show More
+            </Button>
           </div>
         )}
       </div>
