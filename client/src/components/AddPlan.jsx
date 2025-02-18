@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Button, Textarea, TextInput } from "flowbite-react";
+import { Button, Spinner, Textarea, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -8,6 +8,7 @@ const AddPlan = () => {
   const { incomeId } = useParams();
   const [income, setIncome] = useState("");
   const navigate = useNavigate();
+  const [btn, setBtn] = useState(false);
 
   console.log("parram", incomeId);
   const getIncome = async () => {
@@ -15,7 +16,7 @@ const AddPlan = () => {
       const res = await axios.get(`/api/income/get-income/${incomeId}`);
       console.log("first2", res);
       if (res.status === 200) {
-        setIncome(res.data);
+        setIncome(res.data[0]);
       }
     } catch (error) {
       console.log(error);
@@ -35,15 +36,18 @@ const AddPlan = () => {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
+    setBtn(true);
     try {
-      const res = await axios.post(`/api/plan/create/${income[0]._id}`, plan, {
+      const res = await axios.post(`/api/plan/create/${income._id}`, plan, {
         headers: { "Content-Type": "application/json" },
       });
       console.log("plan", res);
       if (res.status === 201) {
-        navigate(`/income/${income[0].slug}`);
+        setBtn(false);
+        navigate(`/income/${income.slug}`);
       }
     } catch (error) {
+      setBtn(false);
       console.log(error);
     }
   };
@@ -93,8 +97,15 @@ const AddPlan = () => {
           </div>
         </div>
         <div className=" w-full mt-7 px-3">
-          <Button type="submit" className=" bg-blue-950 w-full">
-            Create
+          <Button disabled={btn} type="submit" className=" bg-blue-950 w-full">
+            {btn ? (
+              <>
+                <Spinner />
+                <span className=" ml-1">Creating...</span>
+              </>
+            ) : (
+              <p>Create</p>
+            )}
           </Button>
         </div>
       </form>

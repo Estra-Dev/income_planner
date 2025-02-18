@@ -5,7 +5,14 @@ import Plans from "./Plans";
 import { toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 import { useSelector } from "react-redux";
-import { Button, Modal, Select, Textarea, TextInput } from "flowbite-react";
+import {
+  Button,
+  Modal,
+  Select,
+  Spinner,
+  Textarea,
+  TextInput,
+} from "flowbite-react";
 import { FaEdit } from "react-icons/fa";
 
 const Income = () => {
@@ -16,6 +23,7 @@ const Income = () => {
   const [editModal, setEditModal] = useState(false);
   const [incomeDetails, setIncomeDetails] = useState({});
   const navigate = useNavigate();
+  const [btn, setBtn] = useState(false);
 
   const getIncome = async () => {
     try {
@@ -59,6 +67,7 @@ const Income = () => {
   console.log(incomeDetails);
   const handleSubmit = async (ev) => {
     ev.preventDefault();
+    setBtn(true);
     if (Object.keys(incomeDetails).length === 0) {
       toast.success("No Changes Made");
       setEditModal(false);
@@ -74,12 +83,14 @@ const Income = () => {
         }
       );
       if (res.status === 200) {
+        setBtn(false);
         setEditModal(false);
         toast.success("Income Updated");
         setIncome(res.data);
         getIncome();
       }
     } catch (error) {
+      setBtn(false);
       console.log(error);
     }
   };
@@ -251,7 +262,14 @@ const Income = () => {
               </div>
               <div className=" w-full mt-7 px-3">
                 <Button type="submit" className=" bg-blue-950 w-full">
-                  Create
+                  {btn ? (
+                    <>
+                      <Spinner />
+                      <span className=" ml-1">Updating...</span>
+                    </>
+                  ) : (
+                    <p>Update</p>
+                  )}
                 </Button>
               </div>
             </form>

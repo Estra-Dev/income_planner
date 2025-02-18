@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Button, Textarea, TextInput } from "flowbite-react";
+import { Button, Spinner, Textarea, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -11,6 +11,7 @@ const UpdatePlan = () => {
   const [edit, setEdit] = useState({});
   const [plan, setPlan] = useState("");
   const { planId } = useParams();
+  const [btn, setBtn] = useState(false);
   const navigate = useNavigate();
   const getPlans = async () => {
     try {
@@ -38,6 +39,7 @@ const UpdatePlan = () => {
 
   const handleEdit = async (ev) => {
     ev.preventDefault();
+    setBtn(true);
     if (Object.keys(edit).length === 0) {
       toast.success("No changes made");
       return;
@@ -51,9 +53,11 @@ const UpdatePlan = () => {
         }
       );
       if (res.status === 200) {
+        setBtn(false);
         navigate(`/income/${res.data.incomeSlug}`);
       }
     } catch (error) {
+      setBtn(false);
       console.log(error);
     }
   };
@@ -104,8 +108,19 @@ const UpdatePlan = () => {
             </div>
           </div>
           <div className=" w-full mt-7 px-3">
-            <Button type="submit" className=" bg-blue-950 w-full">
-              Create
+            <Button
+              disabled={btn}
+              type="submit"
+              className=" bg-blue-950 w-full"
+            >
+              {btn ? (
+                <>
+                  <Spinner />
+                  <span className=" ml-1">Updating...</span>
+                </>
+              ) : (
+                <p>Update</p>
+              )}
             </Button>
           </div>
         </form>

@@ -1,4 +1,4 @@
-import { Button, Select, Textarea, TextInput } from "flowbite-react";
+import { Button, Select, Spinner, Textarea, TextInput } from "flowbite-react";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 const CreateIncome = () => {
   const [incomeDetails, setIncomeDetails] = useState({});
   const navigate = useNavigate();
+  const [btn, setBtn] = useState(false);
 
   const handleChange = (ev) => {
     const { name, value } = ev.target;
@@ -16,16 +17,19 @@ const CreateIncome = () => {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
+    setBtn(true);
     try {
       const res = await axios.post(`/api/income/create`, incomeDetails, {
         headers: { "Content-Type": "application/json" },
       });
 
       if (res.status === 201) {
+        setBtn(false);
         toast.success("Income Created");
         navigate(`/income/${res.data.slug}`);
       }
     } catch (error) {
+      setBtn(false);
       console.log(error);
       toast.error(error.response.data.message);
     }
@@ -99,8 +103,15 @@ const CreateIncome = () => {
           </div>
         </div>
         <div className=" w-full mt-7 px-3">
-          <Button type="submit" className=" bg-blue-950 w-full">
-            Create
+          <Button disabled={btn} type="submit" className=" bg-blue-950 w-full">
+            {btn ? (
+              <>
+                <Spinner />
+                <span className=" ml-1">Creating...</span>
+              </>
+            ) : (
+              <p>Create</p>
+            )}
           </Button>
         </div>
       </form>

@@ -69,10 +69,10 @@ const Plans = ({ onIncome }) => {
             pill
           >
             <Link
-              to={"/create-income"}
+              to={`/add-plan/${onIncome.slug}`}
               className=" rounded-2xl text-xs text-gray-800 font-medium "
             >
-              Create your first Income
+              Create your first Plan
             </Link>
           </Button>
         </div>
