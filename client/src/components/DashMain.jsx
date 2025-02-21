@@ -90,7 +90,7 @@ const DashMain = () => {
           <span>
             <h1 className=" text-3xl font-medium text-gray-800">History</h1>
             <p className=" font-medium text-gray-800/75">
-              Plans since 7 days ago
+              Recently used Income
             </p>
           </span>
           <Link
@@ -101,7 +101,7 @@ const DashMain = () => {
           </Link>
         </div>
         <div className=" w-full py-3 px-2 mt-2 bg-gray-200/65 flex flex-col">
-          {incomes.length > 0 &&
+          {incomes.length > 0 ? (
             incomes.map((income) => (
               <Link
                 to={`/income/${income.slug}`}
@@ -127,7 +127,12 @@ const DashMain = () => {
                   <p>{new Date(income.updatedAt).toLocaleDateString()}</p>
                 </span>
               </Link>
-            ))}
+            ))
+          ) : (
+            <h1 className=" text-center my-6 font-medium text-gray-500">
+              No Income Yet!
+            </h1>
+          )}
         </div>
       </div>
     </div>

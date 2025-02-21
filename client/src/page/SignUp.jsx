@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
+import BigLogo from "../components/BigLogo";
 
 const SignUp = () => {
   const [details, setDetails] = useState({});
@@ -36,22 +37,25 @@ const SignUp = () => {
   };
 
   return (
-    <div className=" min-h-screen max-w-2xl mx-auto flex flex-col justify-center gap-7 px-4">
-      <div className=" w-[100%] overflow-hidden object-cover h-[300px] mt-10 mx-auto">
-        <h1 className=" font-semibold text-2xl text-gray-900 text-center mt-6 mb-10">
-          Give every money a NAME!
+    <div className=" min-h-screen max-w-sm mx-auto flex flex-col justify-center gap-3 px-6">
+      <div className=" w-[100%] overflow-hidden object-cover mx-auto">
+        <div className=" w-full text-center">
+          <BigLogo />
+        </div>
+        <h1 className=" font-semibold text-[16px] sm:text-sm text-gray-700/85 mt-6 mb-2">
+          You are just a step away to start planning and tracking your income.
         </h1>
-        <img
+        <h1 className=" font-semibold text-[16px] sm:text-sm text-gray-700/85 mb-5">
+          Signup and get access to QuickPlanna services, just one account is
+          enough for you.
+        </h1>
+        {/* <img
           src="https://th.bing.com/th/id/OIP.qQoAjkFY1Ti5QuqZzfx2mwAAAA?pid=ImgDet&w=185&h=310&c=7"
           className=" w-full"
           alt=""
-        />
+        /> */}
       </div>
-      <div className=" w-full">
-        <h1 className=" text-xl text-blue-600 font-semibold text-center">
-          <span className=" text-3xl">Income</span>Planner
-        </h1>
-      </div>
+
       <form className=" w-full" onSubmit={handleSubmit}>
         <div className=" w-full flex flex-col gap-2 text-gray-700">
           <label htmlFor="email">Email:</label>

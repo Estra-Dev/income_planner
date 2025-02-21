@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useState } from "react";
 import { signOutSuccess } from "../redux/user/userSlice";
+import Logo from "./Logo";
 
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -25,14 +26,11 @@ const Header = () => {
 
   return (
     <Navbar className=" sticky border-b-2 top-0 left-0 z-50 px-5">
-      <Link
-        to={"/"}
-        className=" self-center whitespace-nowrap text-sm sm:text-xl font-semibold font-sans text-gray-900"
-      >
-        <span className=" text-xl sm:text-2xl">Income</span>Planner
-      </Link>
+      <div className="">
+        <Logo />
+      </div>
       {/* <div className=" flex flex-1"></div> */}
-      <div className=" flex gap-2 md:order-2">
+      <div className=" flex items-center gap-2 md:order-2">
         {!currentUser ? (
           <Link to={"/sign-in"}>
             <Button

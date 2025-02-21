@@ -5,12 +5,12 @@ export const createIncome = async (req, res, next) => {
   try {
     const { name, incomeAmount, currency } = req.body;
 
-    if (name === "" || incomeAmount === "" || currency === "") {
+    if (!name || !incomeAmount || !currency) {
       return next(errorHandler(403, "Please provide all fields"));
     }
 
     const now = new Date().getTime();
-    const currencyType = req.body.currency.toUpperCase();
+    const currencyType = currency.toUpperCase();
     const slug =
       req.body.name
         .split(" ")
