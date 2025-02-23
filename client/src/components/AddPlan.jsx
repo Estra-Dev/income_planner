@@ -10,11 +10,10 @@ const AddPlan = () => {
   const navigate = useNavigate();
   const [btn, setBtn] = useState(false);
 
-  console.log("parram", incomeId);
   const getIncome = async () => {
     try {
       const res = await axios.get(`/api/income/get-income/${incomeId}`);
-      console.log("first2", res);
+
       if (res.status === 200) {
         setIncome(res.data[0]);
       }
@@ -23,7 +22,6 @@ const AddPlan = () => {
     }
   };
 
-  console.log(income);
   useEffect(() => {
     getIncome();
   }, []);
@@ -32,7 +30,6 @@ const AddPlan = () => {
     const { name, value } = ev.target;
     setPlan({ ...plan, [name]: value });
   };
-  console.log(plan);
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
@@ -41,7 +38,7 @@ const AddPlan = () => {
       const res = await axios.post(`/api/plan/create/${income._id}`, plan, {
         headers: { "Content-Type": "application/json" },
       });
-      console.log("plan", res);
+
       if (res.status === 201) {
         setBtn(false);
         navigate(`/income/${income.slug}`);

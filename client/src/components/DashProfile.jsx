@@ -13,7 +13,6 @@ const DashProfile = () => {
     const { name, value } = ev.target;
     setDetails({ ...details, [name]: value.trim(1) });
   };
-  console.log(details);
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();

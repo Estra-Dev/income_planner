@@ -29,10 +29,8 @@ export const createIncome = async (req, res, next) => {
     });
     const createdIncome = await newIncome.save();
     res.status(201).json(createdIncome);
-    console.log(createdIncome);
   } catch (error) {
     next(error);
-    console.log(error);
   }
 };
 

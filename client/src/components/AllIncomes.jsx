@@ -59,8 +59,6 @@ const AllIncomes = () => {
     }
   }, []);
 
-  console.log(search);
-
   const searchIncome = async (ev) => {
     ev.preventDefault();
     const urlParam = new URLSearchParams(location.search);
@@ -102,7 +100,6 @@ const AllIncomes = () => {
         //   type: "",
         // });
         setIncomes(res.data.incomes);
-        console.log(res);
       }
     } catch (error) {
       console.log(error);

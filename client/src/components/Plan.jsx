@@ -9,8 +9,6 @@ const Plan = ({ plan, onIncome, onDelete, onEdit }) => {
 
   const percent = (plan.amount / onIncome.incomeAmount) * 100;
 
-  console.log("dashbo", percent);
-
   return (
     <div className=" w-full flex flex-col p-2 shadow-md pb-2 border-t-2 border-gray-700/50">
       <span className=" flex mb-1">

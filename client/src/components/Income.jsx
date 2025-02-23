@@ -28,7 +28,6 @@ const Income = () => {
   const getIncome = async () => {
     try {
       const res = await axios.get(`/api/income/get-income/${incomeId}`);
-      console.log("first", res);
       if (res.status === 200) {
         setIncome(res.data[0]);
       }
@@ -38,9 +37,6 @@ const Income = () => {
   };
 
   const percent = income && (income.balance / income.incomeAmount) * 100;
-  console.log("per", percent);
-
-  console.log(income);
   useEffect(() => {
     getIncome();
   }, []);
@@ -64,7 +60,6 @@ const Income = () => {
     setIncomeDetails({ ...incomeDetails, [name]: value });
   };
 
-  console.log(incomeDetails);
   const handleSubmit = async (ev) => {
     ev.preventDefault();
     setBtn(true);

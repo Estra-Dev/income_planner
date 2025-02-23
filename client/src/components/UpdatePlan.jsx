@@ -16,7 +16,6 @@ const UpdatePlan = () => {
   const getPlans = async () => {
     try {
       const res = await axios.get(`/api/plan/get-plans?planId=${planId}`);
-      console.log("first123", res.data);
       if (res.status === 200) {
         setPlan(res.data[0]);
       }
@@ -25,13 +24,10 @@ const UpdatePlan = () => {
     }
   };
 
-  console.log("my id", planId);
-
   const handleChange = (ev) => {
     const { name, value } = ev.target;
     setEdit({ ...edit, [name]: value });
   };
-  console.log("edited", edit);
 
   useEffect(() => {
     getPlans();

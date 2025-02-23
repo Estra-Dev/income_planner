@@ -16,14 +16,11 @@ const Plans = ({ onIncome }) => {
   const [planName, setPlanName] = useState("");
   const { currentUser } = useSelector((state) => state.user);
 
-  console.log("ink", onIncome);
-
   const getPlans = async () => {
     try {
       const res = await axios.get(
         `/api/plan/get-plans?incomeId=${onIncome._id}`
       );
-      console.log("first12", res.data);
       if (res.status === 200) {
         setPlans(res.data);
       }
@@ -41,7 +38,6 @@ const Plans = ({ onIncome }) => {
       const res = await axios.delete(
         `/api/plan/deleteplan/${planId}/${currentUser._id}`
       );
-      console.log(res);
       if (res.status === 200) {
         setModal(false);
         toast.success(res.data);

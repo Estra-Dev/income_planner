@@ -16,8 +16,6 @@ const Dashboard = () => {
       setTab(tabFromUrl);
     }
   }, [location]);
-
-  console.log(tab);
   return (
     <div className=" relative">
       <div className="w-full">

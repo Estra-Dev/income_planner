@@ -35,8 +35,6 @@ const CreateIncome = () => {
     }
   };
 
-  console.log(incomeDetails);
-
   return (
     <div className=" min-h-screen max-w-2xl mx-auto flex flex-col justify-center gap-9 px-4">
       <h1 className=" font-medium text-3xl text-gray-700 text-center">

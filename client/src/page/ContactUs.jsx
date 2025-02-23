@@ -19,25 +19,37 @@ const ContactUs = () => {
             <h1 className=" font-medium text-lg mt-7 text-white/80 pb-2">
               Contact Information
             </h1>
-            <p className=" font-medium text-lg text-blue-600/75 mb-2">
+            <p className=" font-medium text-sm text-blue-600/75 mb-2">
               <span className=" font-medium text-white">Email: </span>
               <a href="mailto:dominionib@gmail.com">dominionib@gmail.com</a>
             </p>
-            <div className=" font-medium text-lg text-blue-600/75 mb-2">
+            <div className=" font-medium text-sm text-blue-600/75 mb-2">
               <span className=" font-medium text-white">Social Media: </span>
               <div className=" flex gap-2 items-center">
                 <FaLinkedin />
-                <a href="https://www.linkedin.com/in/dominion-ikonwa-54348a207">
+                <a
+                  href="https://www.linkedin.com/in/dominion-ikonwa-54348a207"
+                  target="blank"
+                >
                   Dominion Ikonwa
                 </a>
               </div>
               <div className="flex gap-2 items-center">
                 <FaXTwitter />
-                <a href="https://x.com/Mr_IntelliSense">@Mr_IntelliSense</a>
+                <a href="https://x.com/Mr_IntelliSense" target="blank">
+                  @Mr_IntelliSense
+                </a>
               </div>
               <p className=" text-white">
                 You can also drop us a Direct Message on{" "}
-                <span className=" text-blue-600/75">+234-810-586-0804</span>
+                <a
+                  href="https://wa.me/2348105860804"
+                  target="blank"
+                  className=" text-blue-600"
+                >
+                  WhatsApp
+                </a>
+                <span className=" text-blue-600/75"> </span>
               </p>
             </div>
           </div>

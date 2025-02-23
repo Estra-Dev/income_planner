@@ -37,9 +37,7 @@ const Home = () => {
       </div>
       <div className=" flex flex-col items-center mt-7 justify-center w-full">
         <BigLogo />
-        <i className=" font-medium text-gray-800/75 text-sm">
-          Let us help you stick to plan...
-        </i>
+
         <Button size="xs" color="blue" className=" mt-7" outline>
           <Link
             to={"/create-income"}

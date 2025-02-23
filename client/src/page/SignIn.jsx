@@ -22,7 +22,6 @@ const SignIn = () => {
     const { name, value } = ev.target;
     setDetails({ ...details, [name]: value.trim(1) });
   };
-  console.log(details);
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
@@ -34,7 +33,6 @@ const SignIn = () => {
 
       if (res.status === 200) {
         dispatch(signInSuccess(res.data));
-        console.log(res.data);
         // navigate("/dashboard?tab=main");
         navigate("/");
         toast.success("Access Allowed, You are in");

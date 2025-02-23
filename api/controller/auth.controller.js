@@ -75,7 +75,6 @@ export const signIn = async (req, res, next) => {
         httpOnly: true,
       })
       .json(rest);
-    console.log(rest);
   } catch (error) {
     next(error);
   }
