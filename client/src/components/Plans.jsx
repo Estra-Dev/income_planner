@@ -92,7 +92,7 @@ const Plans = ({ onIncome }) => {
           </div>
         ))
       )}
-      <Modal show={modal} onClose={() => setModal(false)} size="xs" popup>
+      <Modal show={modal} onClose={() => setModal(false)} size="md" popup>
         <Modal.Header />
         <Modal.Body>
           <div className="flex flex-col justify-center items-center">

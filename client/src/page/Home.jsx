@@ -1,8 +1,63 @@
-import { Button } from "flowbite-react";
+import { Button, Modal } from "flowbite-react";
 import { Link } from "react-router-dom";
 import BigLogo from "../components/BigLogo";
+import { useEffect, useState } from "react";
+import Review from "../components/Review";
+import Reviews from "../components/Reviews";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const [allowReview, setAllowReview] = useState(false);
+  const [reviewMsg, setReviewMsg] = useState("");
+  const [reviewStatus, setReviewStatus] = useState("");
+  const { currentUser } = useSelector((state) => state.user);
+  const [showMore, setShowMore] = useState(false);
+  const [reviews, setReviews] = useState([]);
+
+  const getReviews = async () => {
+    try {
+      const res = await axios.get(`/api/review/getreviews`);
+      if (res.status === 200) {
+        setReviews(res.data);
+        console.log("data", res.data);
+        if (res.data.length < 5) {
+          setShowMore(false);
+        } else {
+          setShowMore(true);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log(reviews);
+
+  useEffect(() => {
+    getReviews();
+  }, [reviewMsg]);
+
+  const handleShowMore = async () => {
+    const startIndex = reviews.length;
+
+    try {
+      const res = await axios.get(
+        `/api/review/getreviews?startIndex=${startIndex}`
+      );
+      if (res.status === 200) {
+        setReviews((prev) => [...prev, ...res.data]);
+        if (reviews.length < 5) {
+          setShowMore(false);
+        } else {
+          setShowMore(true);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className=" max-w-2xl mx-auto min-h-screen p-3 flex flex-col gap-3 items-start mt-5">
       <div className=" mt-2 p-4 w-full shadow-md bg-black/5 rounded-md">
@@ -47,16 +102,57 @@ const Home = () => {
           </Link>
         </Button>
       </div>
-      <div className=" my-2 p-4 w-full h-[200px] shadow-md bg-black/5 rounded-md flex justify-center items-center">
-        <Button
-          size="sm"
-          color="gray"
-          disabled={true}
-          className=" text-blue-600"
-        >
-          Give your Review
-        </Button>
+      <div className=" my-2 mt-7 p-2 w-full shadow-md bg-black/5 rounded-md flex flex-col gap-1 justify-start items-start">
+        {currentUser && currentUser.numberOfReview < 2 ? (
+          <button
+            onClick={() => {
+              setAllowReview(true);
+            }}
+            // disabled={disable}
+            className=" text-white bg-gradient-to-r from-lime-400 via-lime-500 to-lime-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-xs px-2 py-2 text-center me-2 mb-2"
+          >
+            Give your Review
+          </button>
+        ) : (
+          <p className="text-gray-800 p-1 text-center text-lg font-medium">
+            Users Review
+          </p>
+        )}
+        {reviewStatus && (
+          <h2 className=" text-lime-600 p-1 bg-lime-600/20 text-sm rounded-sm">
+            {reviewMsg}
+          </h2>
+        )}
+        <div className=" w-full">
+          <Reviews reviews={reviews} />
+          {showMore && (
+            <Button
+              onClick={handleShowMore}
+              color="gray"
+              size="xs"
+              className=" mt-4"
+            >
+              See More
+            </Button>
+          )}
+        </div>
       </div>
+
+      <Modal
+        show={allowReview}
+        onClose={() => setAllowReview(false)}
+        size="md"
+        popup
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <Review
+            setAllowReview={setAllowReview}
+            setReviewMsg={setReviewMsg}
+            setReviewStatus={setReviewStatus}
+          />
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

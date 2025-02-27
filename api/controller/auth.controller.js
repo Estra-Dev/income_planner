@@ -36,6 +36,7 @@ export const signUp = async (req, res, next) => {
       email,
       username,
       password: hashedPassword,
+      numberOfReview: 0,
     });
 
     await newUser.save();

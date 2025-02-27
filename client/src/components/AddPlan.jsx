@@ -50,8 +50,8 @@ const AddPlan = () => {
   };
 
   return (
-    <div className=" min-h-screen max-w-2xl mx-auto flex flex-col justify-center gap-9">
-      <h1 className=" font-medium text-3xl text-gray-700 text-center">
+    <div className=" min-h-screen max-w-xl mx-auto px-6 flex flex-col justify-center gap-9">
+      <h1 className=" font-medium text-xl text-gray-700 text-center">
         Set your plans according to your income
       </h1>
       <form

@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 import { useSelector } from "react-redux";
+import BigLogo from "./BigLogo";
 
 const UpdatePlan = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -59,7 +60,8 @@ const UpdatePlan = () => {
   };
 
   return (
-    <div>
+    <div className=" max-w-xl mx-auto flex justify-center items-center flex-col gap-2 w-full px-6 min-h-screen">
+      <BigLogo />
       {plan && (
         <form
           className=" w-full text-gray-600 font-medium"

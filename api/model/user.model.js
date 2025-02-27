@@ -24,6 +24,9 @@ const userSchema = Schema(
       default:
         "https://th.bing.com/th/id/OIP.9lp-AzhvWVzYdKMb9E8tLQHaHs?rs=1&pid=ImgDetMain",
     },
+    numberOfReview: {
+      type: Number,
+    },
   },
   { timestamps: true }
 );

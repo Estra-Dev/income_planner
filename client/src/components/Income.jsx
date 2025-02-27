@@ -156,7 +156,7 @@ const Income = () => {
         <Modal
           show={deleteModal}
           onClose={() => setDeleteModal(false)}
-          size="xs"
+          size="md"
           popup
         >
           <Modal.Header />
@@ -186,7 +186,7 @@ const Income = () => {
         <Modal
           show={editModal}
           onClose={() => setEditModal(false)}
-          size="xs"
+          size="md"
           popup
         >
           <Modal.Header />
