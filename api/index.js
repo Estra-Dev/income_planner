@@ -17,9 +17,9 @@ const PORT = process.env.PORT || 3000;
 
 connectDB();
 
-app.get("/", (req, res) => {
-  res.json({ Message: "Welcome" });
-});
+// app.get("/", (req, res) => {
+//   res.json({ Message: "Welcome" });
+// });
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
