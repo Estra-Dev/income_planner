@@ -20,7 +20,6 @@ const Home = () => {
       const res = await axios.get(`/api/review/getreviews`);
       if (res.status === 200) {
         setReviews(res.data);
-        console.log("data", res.data);
         if (res.data.length < 5) {
           setShowMore(false);
         } else {
@@ -31,8 +30,6 @@ const Home = () => {
       console.log(error);
     }
   };
-
-  console.log(reviews);
 
   useEffect(() => {
     getReviews();
