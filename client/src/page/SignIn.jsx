@@ -11,6 +11,7 @@ import {
   signInFailure,
 } from "../redux/user/userSlice";
 import BigLogo from "../components/BigLogo";
+import OAuth from "../components/OAuth";
 
 const SignIn = () => {
   const [details, setDetails] = useState({});
@@ -83,6 +84,8 @@ const SignIn = () => {
         >
           Sign In
         </Button>
+        <p className=" text-center my-6 font-medium">OR</p>
+        <OAuth />
       </form>
       <span className=" text-xs flex gap-1 text-gray-600 mt-3">
         <p>No Account?</p>

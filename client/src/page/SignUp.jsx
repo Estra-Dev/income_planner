@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 import BigLogo from "../components/BigLogo";
+import OAuth from "../components/OAuth";
 
 const SignUp = () => {
   const [details, setDetails] = useState({});
@@ -88,6 +89,8 @@ const SignUp = () => {
         >
           Sign Up
         </Button>
+        <p className=" text-center my-6 font-medium text-gray-700/75">OR</p>
+        <OAuth />
       </form>
       <span className=" text-xs flex gap-1 text-gray-600">
         <p>Already have an account?</p>

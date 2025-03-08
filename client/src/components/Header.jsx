@@ -45,7 +45,12 @@ const Header = () => {
             arrowIcon={true}
             inline
             label={
-              <Avatar alt="user" img={currentUser.profilePicture} rounded />
+              <Avatar
+                alt="user"
+                img={currentUser.profilePicture}
+                className=" object-cover"
+                rounded
+              />
             }
           >
             <Dropdown.Header>
