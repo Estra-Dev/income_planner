@@ -7,7 +7,6 @@ export const updateUser = async (req, res, next) => {
   try {
     const user = req.user.id;
     const currentUser = await User.findById(user);
-    console.log(currentUser);
     if (user !== req.params.userId) {
       return next(errorHandler(403, "You are not allowed to update this user"));
     }
